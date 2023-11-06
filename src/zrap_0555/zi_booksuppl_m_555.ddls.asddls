@@ -20,6 +20,7 @@ define view ZI_Booksuppl_M_555
       price,
       @Semantics.currencyCode: true
       currency_code,
+      last_changed_at,
 
       /* Associations */
       _Travel,
