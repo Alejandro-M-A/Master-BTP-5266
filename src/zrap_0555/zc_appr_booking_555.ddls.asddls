@@ -19,6 +19,7 @@ define view entity ZC_appr_booking_555
       currency_code   as CurrencyCode,
       booking_status  as BookingStatus,
       last_changed_at as LastChangedAt,
+      
 
       /* Associations */
       _Travel : redirected to parent ZC_Appr_TRAVEL_555,

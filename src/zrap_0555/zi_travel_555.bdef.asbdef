@@ -23,10 +23,19 @@ etag master last_changed_at
   validation validationDates on save { field begin_date, end_date; }
   validation validateStatus on save { field overall_status; }
 
-  association _Booking { create; }
-}
+  //action
+  action ( features: instance ) acceptTravel result[1] $self;
+  action ( features: instance ) rejectTravel result[1] $self;
 
-define behavior for ZI_BOOKING_555 alias booking
+  action createTravelByTemplate result[1] $self;
+
+  association _Booking { create; }
+
+  mapping for ztb_travel_m_555 corresponding;
+
+  }
+
+define behavior for ZI_BOOKING_555 alias Booking
 implementation in class zbp_i_booking_55 unique
 persistent table ztb_bookng_m_555
 lock dependent by _Travel
@@ -39,12 +48,18 @@ etag master last_changed_at
   delete;
 
   validation validateStatus on save { field booking_status; }
+
+  //Determinations
+  determination calculateTotalFlightPrice on modify { field flight_price, currency_code; }
+
   association _Travel;
   association _BookSupplement { create; }
+
+  mapping for ztb_bookng_m_555 corresponding;
 }
 
 define behavior for ZI_Booksuppl_M_555 alias Supplement
-implementation in class zbp_i_booksuppl_55
+implementation in class zbp_i_booksuppl_55 unique
 with unmanaged save
 lock dependent by _Travel
 authorization dependent by _Travel
@@ -56,4 +71,9 @@ etag master last_changed_at
   delete;
   association _Travel;
   association _Booking;
+
+    //Determinations
+  determination calculateTotalSupplPrice on modify { field price, currency_code; }
+
+  mapping for ztv_log_m_555 corresponding;
 }

@@ -19,6 +19,7 @@ define root view entity ZC_Appr_TRAVEL_555
       description        as Description,
       last_changed_at    as LastChangedAt,
       
+      
       _Booking : redirected to composition child ZC_appr_booking_555,
       _Customer
   }
